@@ -1,6 +1,6 @@
 # TCC
 
-Importante Executar os seguintes comandos no terminal
+Importante executar os seguintes comandos no terminal em ordem
 - npm install
-- npx expo start
 - npm install @react-navigation/native-stack
+- npx expo start
