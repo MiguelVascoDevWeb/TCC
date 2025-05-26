@@ -1,9 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../../navigation/StackNavigation';
+import { TrashStackParamList } from '../../navigation/TrashNavigation/TrashNavigation';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Lixo'>;
+type Props = NativeStackScreenProps<TrashStackParamList, 'Lixo'>;
 
 export default function ManagementTrashScreen({ navigation }: Props) {
     return (
@@ -12,7 +12,7 @@ export default function ManagementTrashScreen({ navigation }: Props) {
                 <TouchableOpacity
                     onPress={() => navigation.navigate('LixoTexto')}
                 >
-                    <Text>Botao</Text>
+                    <Text>Botaokk</Text>
                 </TouchableOpacity>
         </View>
     );
