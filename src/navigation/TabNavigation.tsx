@@ -1,18 +1,18 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/HomeScreen';
-import ManagementEnergyScreen from '../screens/Energy/ManagementEnergyScreen';
-import ManagementPoluentsScreen from  '../screens/Poluents/ManagementPoluentsScreen';
 import TrashNavigation from './TrashNavigation/TrashNavigation';
-import ManagementWaterScreen from '../screens/Water/ManagementWaterScreen';
 import { JSX } from 'react/jsx-runtime';
+import WaterNavigation from './WaterNavigation/WaterNavigation';
+import EnergyNavigation from './EnergyNavigation/EnergyNavigation';
+import ManagementPoluentsScreen from '../screens/Poluents/ManagementPoluentsScreen';
 
 export type RootTabParamList = {
   Home: undefined;
-  ManagementEnergy: undefined;
-  ManagementPoluents: undefined;
-  TrashNavigation: undefined;
-  ManagementWater: undefined;
+  Energia: undefined;
+  Água: undefined;
+  Lixo: undefined;
+  Poluentes: undefined;
 
 };
 
@@ -23,10 +23,10 @@ export default function TabNavigator(): JSX.Element {
   
       <Tab.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }} >
         <Tab.Screen name="Home" component={HomeScreen}/>
-        <Tab.Screen name="ManagementEnergy" component={ManagementEnergyScreen}/>
-        <Tab.Screen name="ManagementPoluents" component={ManagementPoluentsScreen}/>
-        <Tab.Screen name="TrashNavigation" component={TrashNavigation}/>
-        <Tab.Screen name="ManagementWater" component={ManagementWaterScreen}/>
+        <Tab.Screen name="Energia" component={EnergyNavigation}/>
+        <Tab.Screen name="Poluentes" component={ManagementPoluentsScreen}/>
+        <Tab.Screen name="Lixo" component={TrashNavigation}/>
+        <Tab.Screen name="Água" component={WaterNavigation}/>
 
       </Tab.Navigator>
     

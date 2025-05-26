@@ -9,11 +9,21 @@ export default function ManagementTrashScreen({ navigation }: Props) {
     return (
         <View>
             <Text>Gerenciamento de Lixo</Text>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('LixoTexto')}
-                >
-                    <Text>Botaokk</Text>
-                </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('LixoTexto')}
+            >
+                <Text>Textos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('ComoDescartar')}
+            >
+                <Text>Como descartar?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('Mapa')}
+            >
+                <Text>Onde descartar?</Text>
+            </TouchableOpacity>
         </View>
     );
 }
