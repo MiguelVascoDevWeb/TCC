@@ -1,12 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ManagementWaterScreen from '../../screens/Water/ManagementWaterScreen';
-import TextWaterScreen from '../../screens/Water/TextWaterScreen';
-
-export type WaterStackParamList = {
-    Agua: undefined;
-    AguaTexto: undefined;
-};
+import ManagementWaterScreen from '@screens/Water/ManagementWaterScreen';
+import TextWaterScreen from '@screens/Water/TextWaterScreen';
+import { WaterStackParamList } from '@/types/WaterStackParamList';
 
 const Stack = createNativeStackNavigator<WaterStackParamList>();
 

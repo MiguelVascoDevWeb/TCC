@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../src/navigation/StackNavigation';
+import { RootStackParamList } from '@/types/RootStackParamList';
+import style from '@styles/Pages/LandingScreenStyle';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Landing'>;
 
@@ -34,38 +35,3 @@ export default function LandingScreen({ navigation }: Props) {
     );
 }
 
-const style = StyleSheet.create({
-    container: {
-        height:'100%',
-        backgroundColor: '#FAFEFC',
-    },
-
-    viewTop: {
-        alignItems: 'center',
-        justifyContent:'center',
-        height:'70%',
-
-    },
-
-    viewBottom: {
-        alignItems: 'center',
-        justifyContent:'center',
-        height:'30%',
-        elevation: 5
-    },
-
-    button: {
-        paddingVertical: 10,
-        paddingHorizontal:70,
-        borderRadius: 25,
-        backgroundColor: '#41D499',
-        marginVertical: 5,
-    },
-    
-    buttonText: {
-        color: '#FAFEFC'
-    }
-
-    
-
-})

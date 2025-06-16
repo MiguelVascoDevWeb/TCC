@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { WaterStackParamList } from '../../navigation/WaterNavigation/WaterNavigation';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { WaterStackParamList } from '@/types/WaterStackParamList';
 
 type Props = NativeStackScreenProps<WaterStackParamList, 'Agua'>;
 

@@ -1,7 +1,7 @@
+import { TrashStackParamList } from '@/types/TrashStackParamList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { TrashStackParamList } from '../../navigation/TrashNavigation/TrashNavigation';
 
 type Props = NativeStackScreenProps<TrashStackParamList, 'Lixo'>;
 

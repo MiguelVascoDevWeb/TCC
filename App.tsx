@@ -1,16 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import LogInScreen from './src/screens/LogInSignUp/LogInScreen';
-import LandingScreen from './src/screens/LandingScreen';
-import StackNavigation from './src/navigation/StackNavigation';
-import { NavigationContainer } from '@react-navigation/native';
-
+import { AuthProvider } from '@/contexts/AuthContext';
+import Routes from './src/navigation/index'; // ajuste o caminho para o arquivo index.tsx que exporta Routes
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackNavigation>
-      </StackNavigation>
-    </NavigationContainer>
+    <AuthProvider>
+      <StatusBar style="auto" />
+      <Routes />
+    </AuthProvider>
   );
 }
-
