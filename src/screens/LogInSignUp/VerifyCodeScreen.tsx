@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, ActivityIndicator } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types/RootStackParamList';
 import { verifyRecoveryCode } from '@/api/auth'; // função para validar código
@@ -15,13 +15,15 @@ type Props = NativeStackScreenProps<RootStackParamList, 'VerifyCode'>;
 export default function VerifyCodeScreen({ navigation, route }: Props) {
   const { email } = route.params;
   const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleVerify() {
-    if (code.length !== 5) return Alert.alert('Erro', 'O código deve ter 5 dígitos.');
+    if (code.length !== 5) {
+      return Alert.alert('Erro', 'O código deve ter 5 dígitos.');
+    }
     try {
-        console.log(code);
+      setLoading(true);
       const valid = await verifyRecoveryCode(email, code);
-      console.log(valid);
       if (valid) {
         navigation.navigate('Recovery', { email, code });
       } else {
@@ -29,6 +31,8 @@ export default function VerifyCodeScreen({ navigation, route }: Props) {
       }
     } catch {
       Alert.alert('Erro', 'Falha na verificação. Tente novamente.');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -46,14 +50,25 @@ export default function VerifyCodeScreen({ navigation, route }: Props) {
           maxLength={5}
           value={code}
           onChangeText={setCode}
-          style={GlobalStyles.inputSimple}
+          editable={!loading}
+          style={[
+            GlobalStyles.inputSimple,
+            { backgroundColor: loading ? '#f5f5f5' : '#fff' }
+          ]}
         />
       </CenteredView>
       <CenteredView height={'30%'}>
         <ButtonSimple
           title='Confirmar Código'
           onPress={handleVerify}
-          />
+          disabled={loading}
+          style={{ backgroundColor: loading ? '#a0cfff' : '#007AFF'}}
+        >
+        {loading ? (
+          <ActivityIndicator color="#fff" style={{ marginRight: 10 }} />
+        ) : null}
+          
+        </ButtonSimple>
       </CenteredView>
     </MainContainer>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TextInput, Image, TouchableOpacity, View, Alert } from 'react-native';
+import { Text, TextInput, Image, TouchableOpacity, View, Alert, ActivityIndicator } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types/RootStackParamList';
 import { forgotPassword  } from '@/api/auth'; // sua função para enviar email
@@ -14,15 +14,22 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 
 export default function ForgotPasswordScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSendEmail() {
-    if (!email) return Alert.alert('Erro', 'Por favor, insira um email válido.');
+    if (!email) 
+    {
+      return Alert.alert('Erro', 'Por favor, insira um email válido.');
+    }
     try {
+      setLoading(true);
       await forgotPassword(email);
       Alert.alert('Sucesso', 'Email enviado! Verifique sua caixa de entrada.');
       navigation.navigate('VerifyCode', { email });
     } catch {
       Alert.alert('Erro', 'Não foi possível enviar o email. Tente novamente.');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -39,16 +46,26 @@ export default function ForgotPasswordScreen({ navigation }: Props) {
           placeholder="Email"
           keyboardType="email-address"
           autoCapitalize="none"
+          editable={!loading}
           value={email}
           onChangeText={setEmail}
-          style={GlobalStyles.inputSimple}
+          style={[
+            GlobalStyles.inputSimple,
+            { backgroundColor: loading ? '#f5f5f5' : '#fff' }
+          ]}
         />
     </CenteredView>
     <CenteredView height={'30%'}>
           <ButtonSimple
-            title='Enviar Código'
+            title={loading ? 'Enviando...' : 'Enviar Código'}
             onPress={handleSendEmail}
-          />
+            disabled={loading}
+            style={{ backgroundColor: loading ? '#a0cfff' : '#007AFF' }}
+          >
+          {loading && (
+            <ActivityIndicator color="#fff" style={{ marginRight: 10 }} />
+          )}
+          </ButtonSimple>
         </CenteredView>
     </MainContainer>
   );
