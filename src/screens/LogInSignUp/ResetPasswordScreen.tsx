@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types/RootStackParamList';
 import { resetPassword } from '@/api/auth'; // função para resetar senha
+import MainContainer from '@/components/MainContainer';
+import LoginSignUpScreenStyle from '@/styles/Pages/Login-SignUpScreenStyle';
+import CenteredView from '@/components/CenteredView';
+import GlobalStyles from '@/styles/global';
+import ButtonSimple from '@/components/ButtonSimple';
+import Title from '@/components/Title';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Recovery'>;
 
@@ -28,45 +34,35 @@ export default function ResetPasswordScreen({ navigation, route }: Props) {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-      <Text style={{ fontSize: 18, marginBottom: 12 }}>Insira sua nova senha:</Text>
-      <TextInput
-        placeholder="Nova senha"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          padding: 10,
-          borderRadius: 8,
-          marginBottom: 12,
-        }}
-      />
-      <TextInput
-        placeholder="Confirmar nova senha"
-        secureTextEntry
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          padding: 10,
-          borderRadius: 8,
-          marginBottom: 20,
-        }}
-      />
-      <TouchableOpacity
-        onPress={handleReset}
-        style={{
-          backgroundColor: '#007AFF',
-          padding: 15,
-          borderRadius: 8,
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: '#fff', fontWeight: '600' }}>Alterar Senha</Text>
-      </TouchableOpacity>
-    </View>
+    <MainContainer>
+      <View style={LoginSignUpScreenStyle.viewBack}>
+        <TouchableOpacity style={LoginSignUpScreenStyle.buttonBack} onPress={() => navigation.navigate('Landing')}>
+          <Image source={require('../../../assets/BackArrow.png')} />
+        </TouchableOpacity>
+      </View>
+      <CenteredView height={'60%'}>
+        <Title>Insira sua nova senha:</Title>
+        <TextInput
+          placeholder="Nova senha"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+          style={GlobalStyles.inputSimple}
+        />
+        <TextInput
+          placeholder="Confirmar nova senha"
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          style={GlobalStyles.inputSimple}
+        />
+      </CenteredView>
+      <CenteredView height={'30%'}>
+        <ButtonSimple
+            title='Alterar Senha'
+            onPress={handleReset}
+          />
+      </CenteredView>
+    </MainContainer>
   );
 }

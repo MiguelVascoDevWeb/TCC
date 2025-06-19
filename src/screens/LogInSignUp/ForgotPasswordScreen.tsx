@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { Text, TextInput, Image, TouchableOpacity, View, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types/RootStackParamList';
 import { forgotPassword  } from '@/api/auth'; // sua função para enviar email
+import GlobalStyles from '@/styles/global';
+import CenteredView from '@/components/CenteredView';
+import ButtonSimple from '@/components/ButtonSimple';
+import MainContainer from '@/components/MainContainer';
+import LoginSignUpScreenStyle from '@/styles/Pages/Login-SignUpScreenStyle';
+import Title from '@/components/Title';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 
@@ -21,33 +27,29 @@ export default function ForgotPasswordScreen({ navigation }: Props) {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-      <Text style={{ fontSize: 18, marginBottom: 12 }}>Digite seu email para recuperação:</Text>
-      <TextInput
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={setEmail}
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          padding: 10,
-          borderRadius: 8,
-          marginBottom: 20,
-        }}
-      />
-      <TouchableOpacity
-        onPress={handleSendEmail}
-        style={{
-          backgroundColor: '#007AFF',
-          padding: 15,
-          borderRadius: 8,
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: '#fff', fontWeight: '600' }}>Enviar Código</Text>
-      </TouchableOpacity>
-    </View>
+    <MainContainer>
+      <View style={LoginSignUpScreenStyle.viewBack}>
+        <TouchableOpacity style={LoginSignUpScreenStyle.buttonBack} onPress={() => navigation.navigate('Landing')}>
+          <Image source={require('../../../assets/BackArrow.png')} />
+        </TouchableOpacity>
+      </View>
+      <CenteredView height={'60%'}>
+        <Title>Digite seu email para recuperação:</Title>
+        <TextInput
+          placeholder="Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={setEmail}
+          style={GlobalStyles.inputSimple}
+        />
+    </CenteredView>
+    <CenteredView height={'30%'}>
+          <ButtonSimple
+            title='Enviar Código'
+            onPress={handleSendEmail}
+          />
+        </CenteredView>
+    </MainContainer>
   );
 }

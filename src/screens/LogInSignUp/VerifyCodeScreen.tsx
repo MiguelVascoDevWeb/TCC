@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types/RootStackParamList';
 import { verifyRecoveryCode } from '@/api/auth'; // função para validar código
+import MainContainer from '@/components/MainContainer';
+import LoginSignUpScreenStyle from '@/styles/Pages/Login-SignUpScreenStyle';
+import CenteredView from '@/components/CenteredView';
+import GlobalStyles from '@/styles/global';
+import ButtonSimple from '@/components/ButtonSimple';
+import Title from '@/components/Title';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'VerifyCode'>;
 
@@ -27,36 +33,28 @@ export default function VerifyCodeScreen({ navigation, route }: Props) {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-      <Text style={{ fontSize: 18, marginBottom: 12 }}>Digite o código enviado para {email}:</Text>
-      <TextInput
-        placeholder="Código (5 dígitos)"
-        maxLength={5}
-        value={code}
-        onChangeText={setCode}
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          padding: 10,
-          borderRadius: 8,
-          marginBottom: 20,
-          letterSpacing: 8,
-          textAlign: 'center',
-          fontSize: 20,
-          fontWeight: '600',
-        }}
-      />
-      <TouchableOpacity
-        onPress={handleVerify}
-        style={{
-          backgroundColor: '#007AFF',
-          padding: 15,
-          borderRadius: 8,
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ color: '#fff', fontWeight: '600' }}>Confirmar Código</Text>
-      </TouchableOpacity>
-    </View>
+    <MainContainer>
+      <View style={LoginSignUpScreenStyle.viewBack}>
+        <TouchableOpacity style={LoginSignUpScreenStyle.buttonBack} onPress={() => navigation.navigate('Landing')}>
+          <Image source={require('../../../assets/BackArrow.png')} />
+        </TouchableOpacity>
+      </View>
+      <CenteredView height={'60%'}>
+        <Title>Digite o código enviado para {email}:</Title>
+        <TextInput
+          placeholder="Código (5 dígitos)"
+          maxLength={5}
+          value={code}
+          onChangeText={setCode}
+          style={GlobalStyles.inputSimple}
+        />
+      </CenteredView>
+      <CenteredView height={'30%'}>
+        <ButtonSimple
+          title='Confirmar Código'
+          onPress={handleVerify}
+          />
+      </CenteredView>
+    </MainContainer>
   );
 }

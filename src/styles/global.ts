@@ -7,20 +7,13 @@ const GlobalStyles = {
   colors: Colors,
   font: Font,
 
-  button: {
-      paddingVertical: 10,
-      paddingHorizontal:70,
-      borderRadius: 25,
-      marginVertical: 5,
+  inputSimple: {
+    borderBottomWidth: 1,
+    borderColor: '#1D6B3D',
+    marginBottom: 15,
+    fontSize: 16,
+    width: '70%',
   },
-
-  buttonText: {
-    color: '#FAFEFC'
-  },
-
-  green:{
-      backgroundColor: '#41D499', 
-  }
 
 }
 

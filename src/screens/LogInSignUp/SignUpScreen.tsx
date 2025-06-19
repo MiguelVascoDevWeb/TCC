@@ -1,9 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@/types/RootStackParamList';
-import style from '@/styles/Pages/SignUpScreenStyle';
+import ButtonSimple from '@/components/ButtonSimple';
+import CenteredView from '@/components/CenteredView';
+import MainContainer from '@/components/MainContainer';
 import { AuthContext } from '@/contexts/AuthContext';
+import LoginSignUpScreenStyle from '@/styles/Pages/Login-SignUpScreenStyle';
+import GlobalStyles from '@/styles/global';
+import { RootStackParamList } from '@/types/RootStackParamList';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useContext, useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
@@ -29,21 +34,22 @@ export default function SignUpScreen({ navigation }: Props) {
   }
 
   return (
-    <View style={style.container}>
-      <View style={style.viewBack}>
-        <TouchableOpacity style={style.buttonBack} onPress={() => navigation.navigate('Landing')}>
-          <Text style={style.buttonCText}>Voltar</Text>
+    <MainContainer>
+      <View style={LoginSignUpScreenStyle.viewBack}>
+        <TouchableOpacity style={LoginSignUpScreenStyle.buttonBack} onPress={() => navigation.navigate('Landing')}>
+          <Image source={require('../../../assets/BackArrow.png')} />
         </TouchableOpacity>
       </View>
-      <View style={style.viewTop}>
+
+      <CenteredView height={'60%'}>
         <TextInput
-          style={style.input}
+          style={GlobalStyles.inputSimple}
           placeholder="Usuário"
           value={name}
           onChangeText={setName}
         />
         <TextInput
-          style={style.input}
+          style={GlobalStyles.inputSimple}
           placeholder="E-mail"
           value={email}
           onChangeText={setEmail}
@@ -51,24 +57,25 @@ export default function SignUpScreen({ navigation }: Props) {
           autoCapitalize="none"
         />
         <TextInput
-          style={style.input}
+          style={GlobalStyles.inputSimple}
           placeholder="Senha"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         <TextInput
-          style={style.input}
+          style={GlobalStyles.inputSimple}
           placeholder="Endereço"
           value={address}
           onChangeText={setAddress}
         />
-      </View>
-      <View style={style.viewBottom}>
-        <TouchableOpacity style={style.buttonC} onPress={handleSignUp}>
-          <Text style={style.buttonCText}>Continuar</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      </CenteredView>
+      <CenteredView height={'30%'}>
+        <ButtonSimple
+          title='Continuar'
+          onPress={handleSignUp}
+        />
+      </CenteredView>
+    </MainContainer>
   );
 }

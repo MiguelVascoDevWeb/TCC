@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@/types/RootStackParamList';
-import style from '@styles/Pages/LoginScreenStyle';
+import ButtonSimple from '@/components/ButtonSimple';
+import CenteredView from '@/components/CenteredView';
+import MainContainer from '@/components/MainContainer';
 import { useAuth } from '@/hooks/useAuth'; // IMPORTAÇÃO CHAVE
+import LoginSignUpScreenStyle from '@/styles/Pages/Login-SignUpScreenStyle';
+import GlobalStyles from '@/styles/global';
+import { RootStackParamList } from '@/types/RootStackParamList';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 
@@ -32,16 +36,16 @@ export default function LogInScreen({ navigation }: Props) {
   };
 
   return (
-    <View style={style.container}>
-      <View style={style.viewBack}>
-        <TouchableOpacity style={style.buttonBack} onPress={() => navigation.navigate('Landing')}>
-          <Text style={style.buttonCText}>Voltar</Text>
+    <MainContainer>
+      <View style={LoginSignUpScreenStyle.viewBack}>
+        <TouchableOpacity style={LoginSignUpScreenStyle.buttonBack} onPress={() => navigation.navigate('Landing')}>
+          <Image source={require('../../../assets/BackArrow.png')} />
         </TouchableOpacity>
       </View>
 
-      <View style={style.viewTop}>
+      <CenteredView height={'60%'}>
         <TextInput
-          style={style.input}
+          style={GlobalStyles.inputSimple}
           placeholder="Usuário/e-mail"
           value={email}
           onChangeText={setEmail}
@@ -50,7 +54,7 @@ export default function LogInScreen({ navigation }: Props) {
         />
 
         <TextInput
-          style={style.input}
+          style={GlobalStyles.inputSimple}
           placeholder="Senha"
           secureTextEntry
           value={password}
@@ -58,17 +62,19 @@ export default function LogInScreen({ navigation }: Props) {
         />
 
         {error && <Text style={{ color: 'red', marginTop: 8 }}>{error}</Text>}
-      </View>
+      </CenteredView>
 
-      <View style={style.viewBottom}>
-        <TouchableOpacity style={[style.buttonC]} onPress={handleLogin} disabled={loading}>
-          <Text style={style.buttonCText}>{loading ? 'Carregando...' : 'Continuar'}</Text>
-        </TouchableOpacity>
+      <CenteredView height={'30%'}>
+        <ButtonSimple
+          title={loading ? 'Carregando...' : 'Continuar'}
+          onPress={handleLogin}
+          disabled={loading}
+        />
 
         <TouchableOpacity onPress={() => navigation.navigate( "ForgotPassword" )}>
-          <Text style={style.buttonRText}>Esqueci Minha Senha</Text>
+          <Text style={LoginSignUpScreenStyle.buttonRText}>Esqueci Minha Senha</Text>
         </TouchableOpacity>
-      </View>
-    </View>
+      </CenteredView>
+    </MainContainer>
   );
 }
