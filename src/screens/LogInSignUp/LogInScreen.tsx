@@ -72,7 +72,7 @@ export default function LogInScreen({ navigation }: Props) {
         />
 
         <TouchableOpacity onPress={() => navigation.navigate( "ForgotPassword" )}>
-          <Text style={LoginSignUpScreenStyle.buttonRText}>Esqueci Minha Senha</Text>
+          <Text style={LoginSignUpScreenStyle.buttonForgotText}>Esqueci Minha Senha</Text>
         </TouchableOpacity>
       </CenteredView>
     </MainContainer>

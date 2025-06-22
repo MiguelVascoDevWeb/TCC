@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "../colors";
 
 const ButtonSimplesStyle = StyleSheet.create({
     button: {
@@ -8,10 +9,9 @@ const ButtonSimplesStyle = StyleSheet.create({
       marginVertical: 5,
       alignItems: 'center', // Para centralizar o texto
       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      elevation: 5,
     },
     buttonText: {
-      color: '#FAFEFC',
+      color: Colors.white,
       fontWeight: 'bold', // Font bold
     },
 });

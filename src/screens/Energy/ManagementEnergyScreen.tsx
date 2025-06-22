@@ -1,26 +1,26 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Pressable } from 'react-native';
+import ButtonSimple from '@/components/ButtonSimple';
+import CenteredView from '@/components/CenteredView';
+import MainContainer from '@/components/MainContainer';
+import Colors from '@/styles/colors';
 import { EnergyStackParamList } from '@/types/EnergyStackParamList';
-import ManagementEnergyStyle from '@/styles/Pages/ManagementEnergyStyle';
-import { SafeAreaView, SafeAreaProvider  } from 'react-native-safe-area-context';
-import GlobalStyles from '@/styles/global';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
 
 type Props = NativeStackScreenProps<EnergyStackParamList, 'Energia'>;
 
 
 export default function ManagementEnergyScreen({ navigation }: Props) {
-    const [modalVisible, setModalVisible] = useState(false);
 
     return (
-        
-        <View style={ManagementEnergyStyle.container}>
-            <TouchableOpacity
-                style={[GlobalStyles.button, GlobalStyles.green]}
-                onPress={() => navigation.navigate('EnergiaDispositivos')}>
-                <Text style={GlobalStyles.buttonText}>Editar Dispositivos</Text>
-            </TouchableOpacity>
-        </View>
+        <MainContainer>
+            <CenteredView>
+                <ButtonSimple
+                    onPress={() => navigation.navigate('EnergiaDispositivos')}
+                    title={'Editar Dispositivos'}
+                    backgroundColor= {Colors.yellow}
+                />
+            </CenteredView>
+        </MainContainer>
     );
     
 }

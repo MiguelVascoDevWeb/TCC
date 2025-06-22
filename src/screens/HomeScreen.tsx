@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { getProfile } from '@/api/user';
+import ButtonSimple from '@/components/ButtonSimple';
+import CenteredView from '@/components/CenteredView';
+import MainContainer from '@/components/MainContainer';
+import Title from '@/components/Title';
 import { useAuth } from '@/hooks/useAuth';
+import { loadDevicesFromStorageEnergy } from '@/repositories/LocalStorageEnergy';
+import { loadDevicesFromStorageWater } from '@/repositories/LocalStorageWater';
+import HomeScreenStyle from '@/styles/Pages/HomeScreenStyle';
+import { EnergyDevice } from '@/types/EnergyDevice';
+import { WaterDevice } from '@/types/WaterDevice';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Text, View } from 'react-native';
 
 interface User {
   id: string;
@@ -13,6 +22,35 @@ export default function HomeScreen() {
   const { signOut } = useAuth();
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [devices, setEnergyDevices] = useState<EnergyDevice[]>([]);
+  const [consumoTotal, setConsumoTotal] = useState(0);
+
+  const [waterDevices, setWaterDevices] = useState<WaterDevice[]>([]);
+  const [consumoTotalAgua, setConsumoTotalAgua] = useState(0);
+
+  useEffect(() => {
+    const carregar = async () => {
+      const listaEnergia = await loadDevicesFromStorageEnergy();
+      setEnergyDevices(listaEnergia);
+      const soma = listaEnergia.reduce((acc, item) => acc + item.consumoMes, 0);
+      setConsumoTotal(soma);
+    };
+
+    carregar();
+  }, []);
+
+  useEffect(() => {
+    const carregar = async () => {
+      const listaAgua = await loadDevicesFromStorageWater();
+      setWaterDevices(listaAgua);
+      const soma = listaAgua.reduce((acc, item) => acc + item.consumoMes, 0);
+      setConsumoTotalAgua(soma);
+    };
+
+    carregar();
+  }, []);
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -31,81 +69,42 @@ export default function HomeScreen() {
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
+      <View style={HomeScreenStyle.loadingContainer}>
         <ActivityIndicator size="large" color="#41D499" />
         <Text>Carregando perfil...</Text>
       </View>
     );
   }
+  
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo, {user?.name} 👋</Text>
+    <MainContainer>
+      <CenteredView>
+        <Title>Bem-vindo, {user?.name} 👋</Title>
 
-      <View style={styles.card}>
-        <Text style={styles.label}>ID:</Text>
-        <Text style={styles.value}>{user?.id}</Text>
+        <View style={HomeScreenStyle.card}>
+          <Text style={HomeScreenStyle.label}>ID:</Text>
+          <Text style={HomeScreenStyle.value}>{user?.id}</Text>
 
-        <Text style={styles.label}>Nome:</Text>
-        <Text style={styles.value}>{user?.name}</Text>
+          <Text style={HomeScreenStyle.label}>Nome:</Text>
+          <Text style={HomeScreenStyle.value}>{user?.name}</Text>
 
-        <Text style={styles.label}>Email:</Text>
-        <Text style={styles.value}>{user?.email}</Text>
-      </View>
+          <Text style={HomeScreenStyle.label}>Email:</Text>
+          <Text style={HomeScreenStyle.value}>{user?.email}</Text>
 
-      <TouchableOpacity style={styles.button} onPress={signOut}>
-        <Text style={styles.buttonText}>Sair</Text>
-      </TouchableOpacity>
-    </View>
+          <Text style={HomeScreenStyle.label}>Consumo de Energia por mês</Text>
+          <Text style={HomeScreenStyle.value}>{consumoTotal.toFixed(2)} kWh/mês</Text>
+
+          <Text style={HomeScreenStyle.label}>Consumo de Água por mês</Text>
+          <Text style={HomeScreenStyle.value}>{consumoTotalAgua.toFixed(2)} m³/mês</Text>
+        </View>
+
+        <ButtonSimple
+          onPress={signOut}
+          title='Sair'
+        />
+      </CenteredView>
+    </MainContainer>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F8FAFC',
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F8FAFC',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#111',
-  },
-  card: {
-    backgroundColor: '#fff',
-    width: '100%',
-    borderRadius: 12,
-    padding: 20,
-    marginVertical: 20,
-    elevation: 5,
-    shadowColor: '#000',
-  },
-  label: {
-    fontWeight: '600',
-    marginTop: 10,
-    color: '#555',
-  },
-  value: {
-    fontSize: 16,
-    color: '#333',
-  },
-  button: {
-    backgroundColor: '#41D499',
-    padding: 15,
-    borderRadius: 12,
-    width: '100%',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-});
+

@@ -4,7 +4,7 @@ import CenteredViewStyle from '@/styles/Components/CenteredViewStyle';
 
 interface CenteredViewProps {
   children: React.ReactNode;
-  height?: number | string;
+  height?: string;
   
 }
 

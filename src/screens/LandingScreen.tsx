@@ -1,6 +1,7 @@
 import ButtonSimple from '@/components/ButtonSimple';
 import CenteredView from '@/components/CenteredView';
 import MainContainer from '@/components/MainContainer';
+import Colors from '@/styles/colors';
 import { RootStackParamList } from '@/types/RootStackParamList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import style from '@styles/Pages/LandingScreenStyle';
@@ -15,7 +16,9 @@ export default function LandingScreen({ navigation }: Props) {
     return(
         <MainContainer>
             <LinearGradient 
-                colors={['#41D499', '#82EAC1']} start={{ x: 0, y: 0.75 }} end={{x: 0, y: 0.99}} 
+                colors={[Colors.green, '#82EAC1']}
+                locations={[0.75, 0.99]}
+                start={{ x: 0, y: 0 }} end={{x: 0, y: 1}} 
                 style={style.viewTop}
             >
                 <Image source={{uri: 'https://reactjs.org/logo-og.png'}}

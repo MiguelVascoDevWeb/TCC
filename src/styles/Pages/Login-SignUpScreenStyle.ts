@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet } from "react-native";
+import Colors from "../colors";
 
 const LoginSignUpScreenStyle = StyleSheet.create({
 
@@ -14,15 +15,11 @@ const LoginSignUpScreenStyle = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal:10,
         borderRadius: 25,
-        backgroundColor: '#41D499',
+        backgroundColor: Colors.green,
     },
 
-    buttonBackText: {
-        color: '#FAFEFC'
-    },
-
-    buttonRText: {
-        color: '#41D499'
+    buttonForgotText: {
+        color: Colors.green
     },
 
 })

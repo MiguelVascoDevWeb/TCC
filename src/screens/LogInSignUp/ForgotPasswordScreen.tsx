@@ -9,6 +9,7 @@ import ButtonSimple from '@/components/ButtonSimple';
 import MainContainer from '@/components/MainContainer';
 import LoginSignUpScreenStyle from '@/styles/Pages/Login-SignUpScreenStyle';
 import Title from '@/components/Title';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ForgotPassword'>;
 

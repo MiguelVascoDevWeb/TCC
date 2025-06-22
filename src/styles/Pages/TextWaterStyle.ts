@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../colors';
 
 const TextWaterStyle = StyleSheet.create({
   container: {
     padding: 24,
-    backgroundColor: '#FAFEFC',
+    backgroundColor: Colors.white,
   },
   textbox: {
     backgroundColor: '#99CCFF',
