@@ -3,12 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { login, register } from '@api/auth';
 import { api } from '../api/api';
 import { getProfile } from '@/api/user';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { User } from '@/types/interfaces/User';
 
 interface AuthContextData {
   user: User | null;

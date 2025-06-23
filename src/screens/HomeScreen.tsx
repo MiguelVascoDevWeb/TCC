@@ -8,15 +8,11 @@ import { loadDevicesFromStorageEnergy } from '@/repositories/LocalStorageEnergy'
 import { loadDevicesFromStorageWater } from '@/repositories/LocalStorageWater';
 import HomeScreenStyle from '@/styles/Pages/HomeScreenStyle';
 import { EnergyDevice } from '@/types/EnergyDevice';
+import { User } from '@/types/interfaces/User';
 import { WaterDevice } from '@/types/WaterDevice';
-import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
 
 export default function HomeScreen() {
   const { signOut } = useAuth();
@@ -29,27 +25,23 @@ export default function HomeScreen() {
   const [waterDevices, setWaterDevices] = useState<WaterDevice[]>([]);
   const [consumoTotalAgua, setConsumoTotalAgua] = useState(0);
 
-  useEffect(() => {
-    const carregar = async () => {
-      const listaEnergia = await loadDevicesFromStorageEnergy();
-      setEnergyDevices(listaEnergia);
-      const soma = listaEnergia.reduce((acc, item) => acc + item.consumoMes, 0);
-      setConsumoTotal(soma);
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const carregar = async () => {
+        const listaEnergia = await loadDevicesFromStorageEnergy();
+        setEnergyDevices(listaEnergia);
+        const soma = listaEnergia.reduce((acc, item) => acc + item.consumoMes, 0);
+        setConsumoTotal(soma);
 
-    carregar();
-  }, []);
+        const listaAgua = await loadDevicesFromStorageWater();
+        setWaterDevices(listaAgua);
+        const somaAgua = listaAgua.reduce((acc, item) => acc + item.consumoMes, 0);
+        setConsumoTotalAgua(somaAgua);
+      };
 
-  useEffect(() => {
-    const carregar = async () => {
-      const listaAgua = await loadDevicesFromStorageWater();
-      setWaterDevices(listaAgua);
-      const soma = listaAgua.reduce((acc, item) => acc + item.consumoMes, 0);
-      setConsumoTotalAgua(soma);
-    };
-
-    carregar();
-  }, []);
+      carregar();
+    }, [])
+  );
 
 
   useEffect(() => {
