@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-type Props = NativeStackScreenProps<TrashStackParamList, 'Lixo'>;
+type Props = NativeStackScreenProps<TrashStackParamList, 'LixoGerenciamento'>;
 
 export default function ManagementTrashScreen({ navigation }: Props) {
     return (

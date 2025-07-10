@@ -21,8 +21,8 @@ export default function LandingScreen({ navigation }: Props) {
                 start={{ x: 0, y: 0 }} end={{x: 0, y: 1}} 
                 style={style.viewTop}
             >
-                <Image source={{uri: 'https://reactjs.org/logo-og.png'}}
-                    style={{width: 50, height: 50}} />
+                <Image source={require('../../assets/icon.png')}
+                    style={{width: 150, height: 150}} />
             </LinearGradient>
             <CenteredView height={'30%'}>
                 <ButtonSimple

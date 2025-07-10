@@ -1,5 +1,5 @@
 export type TrashStackParamList = {
-    Lixo: undefined;
+    LixoGerenciamento: undefined;
     LixoTexto: undefined;
     ComoDescartar: undefined;
     Mapa: undefined;

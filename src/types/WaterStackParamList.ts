@@ -1,5 +1,5 @@
 export type WaterStackParamList = {
-    Agua: undefined;
+    AguaGerenciamento: undefined;
     AguaDispositivos: undefined;
     AguaTexto: undefined;
 };

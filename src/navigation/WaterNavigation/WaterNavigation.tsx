@@ -16,7 +16,7 @@ export default function WaterNavigation() {
           headerTitleStyle: { fontWeight: 'bold' },
           headerBackground: () => (
             <LinearGradient
-              colors={['#3B87EA', '#66BFFF' , Colors.blue]}
+              colors={[Colors.blue, '#66BFFF' , '#3B87EA']}
               locations={[0 , 0.39, 1]}
               style={{ flex: 1 }}
               start={{ x: 0, y: 0 }}
@@ -25,9 +25,11 @@ export default function WaterNavigation() {
           ),
         }}
       >
-        <Stack.Screen name="Agua" component={ManagementWaterScreen} options={{ headerBackVisible: false }}  />
+        <Stack.Screen name="AguaGerenciamento" component={ManagementWaterScreen} 
+          options={{ headerBackVisible: false, headerTitle:'Gerenciamento de Água'}}  />
         <Stack.Screen name="AguaTexto" component={TextWaterScreen}/>
-        <Stack.Screen name="AguaDispositivos" component={WaterDevicesScreen}/>
+        <Stack.Screen name="AguaDispositivos" component={WaterDevicesScreen}
+          options={{headerTitle: 'Dispositivos' }}/>
       </Stack.Navigator>
     
   );

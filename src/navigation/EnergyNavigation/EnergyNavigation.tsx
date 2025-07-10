@@ -25,9 +25,11 @@ export default function EnergyNavigation() {
           />
         ),
       }}>
-        <Stack.Screen name="Energia" component={ManagementEnergyScreen} options={{ headerBackVisible: false }}  />
-        <Stack.Screen name="EnergiaTexto" component={TextEnergy}/>
-        <Stack.Screen name="EnergiaDispositivos" component={EnergyDevicesScreen}/>
+        <Stack.Screen name="EnergiaGerenciamento" component={ManagementEnergyScreen} 
+          options={{ headerBackVisible: false, headerTitle: 'Gerenciamento de Energia' }}  />
+        <Stack.Screen name="EnergiaTexto" component={TextEnergy} options={{headerTitle: 'Textos de Energia' }}/>
+        <Stack.Screen name="EnergiaDispositivos" component={EnergyDevicesScreen}
+          options={{headerTitle: 'Dispositivos' }}/>
       </Stack.Navigator>
     
   );

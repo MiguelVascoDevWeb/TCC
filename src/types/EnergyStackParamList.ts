@@ -1,5 +1,5 @@
 export type EnergyStackParamList = {
-    Energia: undefined;
+    EnergiaGerenciamento: undefined;
     EnergiaTexto: undefined;
     EnergiaDispositivos: undefined;
 };

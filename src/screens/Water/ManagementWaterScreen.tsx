@@ -7,7 +7,7 @@ import CenteredView from '@/components/CenteredView';
 import ButtonSimple from '@/components/ButtonSimple';
 import Colors from '@/styles/colors';
 
-type Props = NativeStackScreenProps<WaterStackParamList, 'Agua'>;
+type Props = NativeStackScreenProps<WaterStackParamList, 'AguaGerenciamento'>;
 
 export default function ManagementWaterScreen({ navigation }: Props) {
     return (

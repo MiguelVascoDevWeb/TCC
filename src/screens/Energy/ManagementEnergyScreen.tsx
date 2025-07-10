@@ -6,7 +6,7 @@ import { EnergyStackParamList } from '@/types/EnergyStackParamList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 
-type Props = NativeStackScreenProps<EnergyStackParamList, 'Energia'>;
+type Props = NativeStackScreenProps<EnergyStackParamList, 'EnergiaGerenciamento'>;
 
 
 export default function ManagementEnergyScreen({ navigation }: Props) {
