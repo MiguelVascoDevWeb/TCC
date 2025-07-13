@@ -1,3 +1,7 @@
+import ButtonSimple from '@/components/ButtonSimple';
+import CenteredView from '@/components/CenteredView';
+import MainContainer from '@/components/MainContainer';
+import Colors from '@/styles/colors';
 import { TrashStackParamList } from '@/types/TrashStackParamList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
@@ -7,23 +11,24 @@ type Props = NativeStackScreenProps<TrashStackParamList, 'LixoGerenciamento'>;
 
 export default function ManagementTrashScreen({ navigation }: Props) {
     return (
-        <View>
-            <Text>Gerenciamento de Lixo</Text>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('LixoTexto')}
-            >
-                <Text>Textos</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('ComoDescartar')}
-            >
-                <Text>Como descartar?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Mapa')}
-            >
-                <Text>Onde descartar?</Text>
-            </TouchableOpacity>
-        </View>
+        <MainContainer>
+            <CenteredView>
+                <ButtonSimple
+                    onPress={() => navigation.navigate('ComoDescartar')}
+                    title='Como Descartar?'
+                    backgroundColor={Colors.brown}
+                />
+                                <ButtonSimple
+                    onPress={() => navigation.navigate('Mapa')}
+                    title='Onde Descartar?'
+                    backgroundColor={Colors.brown}
+                />
+                                <ButtonSimple
+                    onPress={() => navigation.navigate('LixoTexto')}
+                    title='Sobre o Lixo'
+                    backgroundColor={Colors.brown}
+                />
+            </CenteredView>
+        </MainContainer>
     );
 }

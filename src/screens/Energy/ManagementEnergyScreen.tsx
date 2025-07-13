@@ -19,6 +19,11 @@ export default function ManagementEnergyScreen({ navigation }: Props) {
                     title={'Editar Dispositivos'}
                     backgroundColor= {Colors.yellow}
                 />
+                <ButtonSimple
+                    onPress={() => navigation.navigate('EnergiaTexto')}
+                    title={'Sobre a Energia'}
+                    backgroundColor={Colors.yellow}
+                />
             </CenteredView>
         </MainContainer>
     );

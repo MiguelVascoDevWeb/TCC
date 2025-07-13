@@ -10,75 +10,76 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { RootTabParamList } from '@/types/RootTabParamList';
 import Colors from '@/styles/colors';
 import { LinearGradient } from 'expo-linear-gradient';
+import NavigationGradient from '@/components/NavigationGradient';
+import { ColorValue } from 'react-native';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function TabNavigator(): JSX.Element {
   return (
   
-      
-<Tab.Navigator
-  screenOptions={({ route }) => ({
-    //Estilização dos tab navigator
-    headerShown: false,
-    tabBarActiveTintColor: Colors.white,
-    tabBarInactiveTintColor: '#616663',
-    tabBarShowLabel: true,
-    animation: 'fade',
-    tabBarStyle: {
-      height:110
-    },
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        //Estilização dos tab navigator
+        headerShown: false,
+        tabBarActiveTintColor: Colors.white,
+        tabBarInactiveTintColor: '#616663',
+        tabBarShowLabel: true,
+        animation: 'fade',
+        tabBarStyle: {
+          height:110,
+          boxShadow: '0px -5px 5px rgba(0, 0, 0, 0.1)',
+        },
 
-    tabBarIcon: ({ focused, color }) => {
-      let iconName: string;
+        tabBarIcon: ({ focused, color }) => {
+          let iconName: string;
 
-      //Icones para cada botão
-      if (route.name === 'Home') {
-        iconName = focused ? 'home' : 'home-outline';
-      } else if (route.name === 'Energia') {
-        iconName = focused ? 'flash' : 'flash-outline';
-      }else if (route.name === 'Água') {
-        iconName = focused ? 'water' : 'water-outline';
-      }else if (route.name === 'Lixo') {
-        iconName = focused ? 'trash' : 'trash-outline'
-      }else if (route.name === 'Poluentes') {
-        iconName = focused ? 'cloud' : 'cloud-outline'
-      }
+          //Icones para cada botão
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Energia') {
+            iconName = focused ? 'flash' : 'flash-outline';
+          }else if (route.name === 'Água') {
+            iconName = focused ? 'water' : 'water-outline';
+          }else if (route.name === 'Lixo') {
+            iconName = focused ? 'trash' : 'trash-outline'
+          }else if (route.name === 'Poluentes') {
+            iconName = focused ? 'cloud' : 'cloud-outline'
+          }else {
+            iconName = 'bug';
+          }
 
-      return <Ionicons name={iconName} size={30} color={color} />;
-    },
-    tabBarBackground: () => {
-        let TabBarColors = ['#82EAC1', '#65DDAE', Colors.green];
+          return <Ionicons name={iconName} size={30} color={color} />;
+        },
+        tabBarBackground: () => {
+            let TabBarColors: readonly [ColorValue, ColorValue, ...ColorValue[]];
 
-        //Gradientes para cada sessão do app
-        if (route.name === 'Energia') {
-          TabBarColors = ['#FFE18F','#FFD666', '#EABC3B'];
-        }else if (route.name === 'Água') {
-          TabBarColors = [Colors.blue, '#66BFFF' , '#3B87EA'];
-        }else if (route.name === 'Lixo') {
-          TabBarColors = ['#D7AE81', '#DEA669' , Colors.brown];
-        }else if (route.name === 'Poluentes') {
-          TabBarColors = ['#D09EEB', '#C780EE' , Colors.purple];
-        }
+            //Gradientes para cada sessão do app
+            if (route.name === 'Energia') {
+              TabBarColors = ['#FFE18F','#FFD666', '#EABC3B'];
+            }else if (route.name === 'Água') {
+              TabBarColors = [Colors.blue, '#66BFFF' , '#3B87EA'];
+            }else if (route.name === 'Lixo') {
+              TabBarColors = ['#D7AE81', '#DEA669' , Colors.brown];
+            }else if (route.name === 'Poluentes') {
+              TabBarColors = ['#D09EEB', '#C780EE' , Colors.purple];
+            }else {
+              TabBarColors = ['#82EAC1', '#65DDAE', Colors.green];
+            }
 
-        return (
-          <LinearGradient
-            colors={TabBarColors}
-            locations={[0 , 0.39, 1]}
-            style={{ flex: 1}}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-          />
-        )
-      },
-  })}
->
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Energia" component={EnergyNavigation} />
-        <Tab.Screen name="Poluentes" component={ManagementPoluentsScreen} />
-        <Tab.Screen name="Lixo" component={TrashNavigation} />
-        <Tab.Screen name="Água" component={WaterNavigation} />
-      </Tab.Navigator>
+            return (
+              <NavigationGradient gradientColors={TabBarColors}
+              />
+            )
+          },
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Energia" component={EnergyNavigation} />
+      <Tab.Screen name="Poluentes" component={ManagementPoluentsScreen} />
+      <Tab.Screen name="Lixo" component={TrashNavigation} />
+      <Tab.Screen name="Água" component={WaterNavigation} />
+    </Tab.Navigator>
 
     
   );  

@@ -18,6 +18,11 @@ export default function ManagementWaterScreen({ navigation }: Props) {
                     title={'Editar Dispositivos'}
                     backgroundColor= {Colors.blue}
                 />
+                <ButtonSimple
+                    onPress={() => navigation.navigate('AguaTexto')}
+                    title='Sobre a Água'
+                    backgroundColor={Colors.blue}
+                />
             </CenteredView>
         </MainContainer>
     );

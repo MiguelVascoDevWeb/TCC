@@ -1,33 +1,35 @@
 import React from 'react';
 import { ScrollView, View, Text, Image } from 'react-native';
-import TextEnergyStyle from '@/styles/Pages/TextEnergyStyle';
+import TextScreensStyle from '@/styles/Pages/TextScreensStyle';
+import Title from '@/components/Title';
+import Colors from '@/styles/colors';
 
 export default function TextEnergyScreen() {
   return (
-    <ScrollView contentContainerStyle={TextEnergyStyle.container}>
-      <View style={TextEnergyStyle.textbox}>
-        <Text style={TextEnergyStyle.Title}>
-            Texto 1
-        </Text>
-        <Text style={TextEnergyStyle.FText}>
+    <ScrollView contentContainerStyle={TextScreensStyle.container}>
+      <View style={[TextScreensStyle.textbox, {backgroundColor: Colors.yellowSecondary}]}>
+        <Title style={TextScreensStyle.Title} color={Colors.yellowDark}>
+          Titulo 1
+        </Title>
+        <Text style={TextScreensStyle.FText}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mauris vel elit congue ullamcorper. Fusce feugiat dictum tempor. Praesent quis dui ultricies, feugiat elit at, facilisis augue. Nulla sodales ante lacus, id eleifend nisl bibendum nec. Cras arcu metus, ullamcorper eget ligula nec, lobortis pulvinar 
         </Text>
       </View>
-      <View style={TextEnergyStyle.textbox}>
-        <Image source={{uri: 'https://reactjs.org/logo-og.png'}} style={TextEnergyStyle.Img}/>
-        <Text style={TextEnergyStyle.FText}>
+      <View style={[TextScreensStyle.textbox, {backgroundColor: Colors.yellowSecondary}]}>
+        <Image source={{uri: 'https://reactjs.org/logo-og.png'}} style={TextScreensStyle.Img}/>
+        <Text style={TextScreensStyle.FText}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mauris vel elit congue ullamcorper. Fusce feugiat dictum tempor. Praesent quis dui ultricies, feugiat elit at, facilisis augue. Nulla sodales ante lacus, id eleifend nisl bibendum nec. Cras arcu metus, ullamcorper eget ligula nec, lobortis pulvinar 
         </Text>
       </View>
-      <View style={TextEnergyStyle.textbox}>
-      <Text style={TextEnergyStyle.Title}>
-            Texto 2
-        </Text>
-        <Text style={TextEnergyStyle.FText}>
+      <View style={[TextScreensStyle.textbox, {backgroundColor: Colors.yellowSecondary}]}>
+        <Title style={TextScreensStyle.Title} color={Colors.yellowDark}>
+          Titulo 2
+        </Title>
+        <Text style={TextScreensStyle.FText}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mauris vel elit congue ullamcorper. Fusce feugiat dictum tempor. Praesent quis dui ultricies, feugiat elit at, facilisis augue. Nulla sodales ante lacus, id eleifend nisl bibendum nec. Cras arcu metus, ullamcorper eget ligula nec, lobortis pulvinar 
         </Text>
-        <Image source={{uri: 'https://reactjs.org/logo-og.png'}} style={TextEnergyStyle.Img}/>
-        <Text style={TextEnergyStyle.FText}>
+        <Image source={{uri: 'https://reactjs.org/logo-og.png'}} style={TextScreensStyle.Img}/>
+        <Text style={TextScreensStyle.FText}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mauris vel elit congue ullamcorper. Fusce feugiat dictum tempor. Praesent quis dui ultricies, feugiat elit at, facilisis augue. Nulla sodales ante lacus, id eleifend nisl bibendum nec. Cras arcu metus, ullamcorper eget ligula nec, lobortis pulvinar 
         </Text>
       </View>

@@ -29,7 +29,8 @@ export default function TrashNavigation() {
       }}>
         <Stack.Screen name="LixoGerenciamento" component={ManagementTrashScreen} 
           options={{ headerBackVisible: false, headerTitle: 'Gerenciamento de Lixo' }}  />
-        <Stack.Screen name="LixoTexto" component={TextTrash}/>
+        <Stack.Screen name="LixoTexto" component={TextTrash}
+          options={{headerTitle: 'Sobre o Lixo'}}/>
         <Stack.Screen name="ComoDescartar" component={HowToDisposeScreen}/>
         <Stack.Screen name="Mapa" component={MapScreen}/>
       </Stack.Navigator>

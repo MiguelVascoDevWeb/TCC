@@ -6,6 +6,7 @@ import TextEnergy from '@screens/Energy/TextEnergyScreen';
 import { EnergyStackParamList } from '@/types/EnergyStackParamList';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import NavigationGradient from '@/components/NavigationGradient';
 
 const Stack = createNativeStackNavigator<EnergyStackParamList>();
 
@@ -16,18 +17,12 @@ export default function EnergyNavigation() {
         headerTintColor: Colors.white,
         headerTitleStyle: { fontWeight: 'bold' },
         headerBackground: () => (
-          <LinearGradient
-            colors={['#FFE18F','#FFD666', '#EABC3B']}
-            locations={[0 , 0.39, 1]}
-            style={{ flex: 1 }}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-          />
+          <NavigationGradient gradientColors={['#FFE18F','#FFD666', '#EABC3B']}/>
         ),
       }}>
         <Stack.Screen name="EnergiaGerenciamento" component={ManagementEnergyScreen} 
           options={{ headerBackVisible: false, headerTitle: 'Gerenciamento de Energia' }}  />
-        <Stack.Screen name="EnergiaTexto" component={TextEnergy} options={{headerTitle: 'Textos de Energia' }}/>
+        <Stack.Screen name="EnergiaTexto" component={TextEnergy} options={{headerTitle: 'Sobre a Energia' }}/>
         <Stack.Screen name="EnergiaDispositivos" component={EnergyDevicesScreen}
           options={{headerTitle: 'Dispositivos' }}/>
       </Stack.Navigator>
