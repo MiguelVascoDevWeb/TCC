@@ -9,7 +9,6 @@ import ManagementPoluentsScreen from '@screens/Poluents/ManagementPoluentsScreen
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { RootTabParamList } from '@/types/RootTabParamList';
 import Colors from '@/styles/colors';
-import { LinearGradient } from 'expo-linear-gradient';
 import NavigationGradient from '@/components/NavigationGradient';
 import { ColorValue } from 'react-native';
 
@@ -74,13 +73,13 @@ export default function TabNavigator(): JSX.Element {
           },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Energia" component={EnergyNavigation} />
-      <Tab.Screen name="Poluentes" component={ManagementPoluentsScreen} />
-      <Tab.Screen name="Lixo" component={TrashNavigation} />
-      <Tab.Screen name="Água" component={WaterNavigation} />
+      <Tab.Screen name="Home" component={HomeScreen}/>
+      <Tab.Screen name="Energia" component={EnergyNavigation} options={{lazy: false}}/>
+      <Tab.Screen name="Poluentes" component={ManagementPoluentsScreen}/>
+      <Tab.Screen name="Lixo" component={TrashNavigation} options={{lazy: false}} />
+      <Tab.Screen name="Água" component={WaterNavigation} options={{lazy: false}} />
     </Tab.Navigator>
 
-    
+    /*{'lazy : false}' é utilizado para carregar as páginas ao carregar o tab, evitando erros de navegação */
   );  
 }

@@ -1,15 +1,14 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import ButtonSimplesStyle from '@/styles/Components/ButtonSimpleStyle';
 import Colors from '@/styles/colors';
 
 interface ButtonProps {
-  onPress: () => void;
+  onPress: (() => void ) | undefined;
   title: string;
   backgroundColor?: string;
-  disabled?: Boolean
+  disabled?: Boolean // utilizado em carregamentos
   children?: React.ReactNode;
-  style?: React.CSSProperties;
 }
 
 const ButtonSimple: React.FC<ButtonProps> = ({ onPress, title, backgroundColor = Colors.green, children}) => {

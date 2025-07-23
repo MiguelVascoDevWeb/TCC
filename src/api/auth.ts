@@ -32,19 +32,19 @@ export async function register(data: RegisterData) {
 
 // Envia email com código para recuperação
 export async function forgotPassword(email: string) {
-  const response = await api.post('/auth/forgot-password', { email });
+  const response = await api.post('/password/reset-request', { email });
   return response.data;
 }
 
 // Verifica se o código de recuperação é válido para o email
 export async function verifyRecoveryCode(email: string, code: string) {
-  const response = await api.post('/auth/verify-code', { email, code });
+  const response = await api.post('/password/verify-code', { email, code });
   return response;  // Supondo que o backend retorne { isValid: boolean }
 }
 
 // Reseta a senha com token + nova senha + email
 export async function resetPassword(email: string, code: string, newPassword: string) {
-  const response = await api.post('/auth/reset-password', {
+  const response = await api.post('/password/reset', {
     email,
     code,
     newPassword,

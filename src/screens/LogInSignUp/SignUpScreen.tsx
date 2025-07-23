@@ -17,10 +17,13 @@ export default function SignUpScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState(''); // se precisar usar no backend
+  const [loading, setLoading] = useState(false);
 
   const { signUp, signIn } = useContext(AuthContext);
 
   async function handleSignUp() {
+    setLoading(true);
+
     try {
       await signUp(name, email, password);
       await signIn(email, password);
@@ -30,6 +33,8 @@ export default function SignUpScreen({ navigation }: Props) {
       } else {
         alert('Erro inesperado');
       }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -72,8 +77,9 @@ export default function SignUpScreen({ navigation }: Props) {
       </CenteredView>
       <CenteredView height={'30%'}>
         <ButtonSimple
-          title='Continuar'
+          title={loading ? 'Carregando...' : 'Continuar'}
           onPress={handleSignUp}
+          disabled={loading}
         />
       </CenteredView>
     </MainContainer>

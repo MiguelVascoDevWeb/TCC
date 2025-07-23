@@ -10,12 +10,11 @@ const HomeScreenStyle = StyleSheet.create({
     },
     card: {
       backgroundColor: '#fff',
-      width: '90%',
       borderRadius: 12,
       padding: 20,
-      marginVertical: 20,
       elevation: 5,
       shadowColor: '#000',
+      marginBottom: 30
     },
     label: {
       fontWeight: '600',

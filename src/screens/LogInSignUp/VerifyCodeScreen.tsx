@@ -62,7 +62,6 @@ export default function VerifyCodeScreen({ navigation, route }: Props) {
           title='Confirmar Código'
           onPress={handleVerify}
           disabled={loading}
-          style={{ backgroundColor: loading ? '#a0cfff' : '#007AFF'}}
         >
         {loading ? (
           <ActivityIndicator color="#fff" style={{ marginRight: 10 }} />

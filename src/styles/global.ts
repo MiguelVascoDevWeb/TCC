@@ -35,6 +35,11 @@ const GlobalStyles = StyleSheet.create({
       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
   },
 
+  scrollViewContainer: {
+    paddingHorizontal: 24,
+    backgroundColor: Colors.white,
+  },
+
 });
 
 export default GlobalStyles;
