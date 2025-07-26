@@ -5,6 +5,7 @@ import { AuthContext } from '@/contexts/AuthContext';
 import LoginSignUpScreenStyle from '@/styles/Pages/Login-SignUpScreenStyle';
 import GlobalStyles from '@/styles/global';
 import { RootStackParamList } from '@/types/RootStackParamList';
+import { isValidEmail } from '@/utils/email';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useContext, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
@@ -25,6 +26,9 @@ export default function SignUpScreen({ navigation }: Props) {
     setLoading(true);
 
     try {
+      if(!isValidEmail(email)) {
+        throw new Error("Tá achando que eu sou trouxa????");
+      }
       await signUp(name, email, password);
       await signIn(email, password);
     } catch (error: unknown) {

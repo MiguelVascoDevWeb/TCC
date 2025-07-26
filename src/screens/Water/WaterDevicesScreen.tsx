@@ -1,11 +1,11 @@
+import { createWaterEquipment, deleteEquipment, getAllWaterEquipments, updateWaterEquipment } from '@/api/equipments';
 import ButtonSimple from '@/components/ButtonSimple';
 import CenteredView from '@/components/CenteredView';
 import MainContainer from '@/components/MainContainer';
 import { calcConsumo } from '@/repositories/calcConsumo';
-import { loadDevicesFromStorageWater, saveDevicesToStorageWater } from '@/repositories/LocalStorageWater';
 import Colors from '@/styles/colors';
 import GlobalStyles from '@/styles/global';
-import { WaterDevice } from '@/types/WaterDevice';
+import { WaterDevice, WaterDevicePayload } from '@/types/WaterDevice';
 import { WaterStackParamList } from '@/types/WaterStackParamList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
@@ -14,83 +14,97 @@ import { Alert, FlatList, Modal, Text, TextInput, TouchableOpacity, View } from 
 type Props = NativeStackScreenProps<WaterStackParamList, 'AguaDispositivos'>;
 
 
-export default function EnergyDevicesScreen({ navigation }: Props) {
+export default function WaterDevicesScreen({ navigation }: Props) {
 
-    const [devices, setDevices] = useState<WaterDevice[]>([]);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [editing, setEditing] = useState<WaterDevice | null>(null);
+  const [devices, setDevices] = useState<WaterDevice[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [editing, setEditing] = useState<WaterDevice | null>(null);
 
-    const [nome, setNome] = useState('');
-    const [litros, setLitros] = useState('');
-    const [horasPorDia, setHorasPorDia] = useState('');
+  const [nome, setNome] = useState('');
+  const [litros, setLitros] = useState('');
+  const [horasPorDia, setHorasPorDia] = useState('');
 
-    useEffect(() => {
-        loadDevices();
-    }, []);
+  useEffect(() => {
+      fetchDevices();
+  }, []);
 
-    const loadDevices = async () => {
-    const saved = await loadDevicesFromStorageWater();
-    setDevices(saved);
-    };
+  const fetchDevices = async () => {
+      try {
+        const result = await getAllWaterEquipments();
+        setDevices(result);
+      } catch (error) {
+        Alert.alert('Erro', 'Não foi possível carregar os dispositivos.');
+      }
+  };
 
-    const resetForm = () => {
-        setNome('');
-        setLitros('');
-        setHorasPorDia('');
-        setEditing(null);
-    }; // reseta os campos do formulário
+  const resetForm = () => {
+      setNome('');
+      setLitros('');
+      setHorasPorDia('');
+      setEditing(null);
+  }; // reseta os campos do formulário
 
-    const saveDevices = () => {
-        const newDevice: WaterDevice = {
-          id: editing ? editing.id : Date.now().toString(),
-          nome,
-          litros: Number(litros),
-          horasPorDia: Number(horasPorDia),
-          consumoMes: calcConsumo(Number(litros), Number(horasPorDia))
-        };
-    
-        let updatedDevices: WaterDevice[] = [];
-    
+  const handleSave = async () => {
+      const li = Number(litros);
+      const h = Number(horasPorDia);
+  
+      if (!nome.trim() || isNaN(li) || isNaN(h) || li <= 0 || h <= 0) {
+        Alert.alert('Erro', 'Preencha todos os campos corretamente.');
+        return;
+      }
+  
+      const devicePayload: WaterDevicePayload = {
+        name: nome.trim(),
+        l: li,
+        time: h,
+        totalConsum: calcConsumo(li, h),
+      };
+  
+      try {
         if (editing) {
-          updatedDevices = devices.map(item =>
-            item.id === editing.id ? newDevice : item
-          );
+          await updateWaterEquipment(editing.id, devicePayload);
         } else {
-          updatedDevices = [...devices, newDevice];
+          console.log(devicePayload);
+          await createWaterEquipment(devicePayload);
         }
-    
-        setDevices(updatedDevices);
-        saveDevicesToStorageWater(updatedDevices);
+  
+        fetchDevices();
         resetForm();
         setModalVisible(false);
-      };
-
-    const editDevice = (item: WaterDevice) => {
-        setNome(item.nome);
-        setLitros(item.litros.toString());
-        setHorasPorDia(item.horasPorDia.toString());
-        setEditing(item);
-        setModalVisible(true);
+      } catch (error) {
+        Alert.alert('Erro', 'Não foi possível salvar o dispositivo.' + error);
+      }
     };
 
-    const removeDevice = (id: string) => {
-        Alert.alert(
-          'Remover dispositivo',
-          'Tem certeza que deseja remover este dispositivo?',
-          [
-            { text: 'Cancelar', style: 'cancel' },
-            {
-              text: 'Remover',
-              style: 'destructive',
-              onPress: () => {
-                const updated = devices.filter(device => device.id !== id);
-                setDevices(updated);
-                saveDevicesToStorageWater(updated);
+    const handleEdit = (device: WaterDevice) => {
+        setNome(device.name);
+        setLitros(device.l.toString());
+        setHorasPorDia(device.time.toString());
+        setEditing(device);
+        setModalVisible(true);
+      };
+
+    const handleRemove = (id: string) => {
+      Alert.alert(
+        'Remover dispositivo',
+        'Tem certeza que deseja remover este dispositivo?',
+        [
+          { text: 'Cancelar', style: 'cancel' },
+          {
+            text: 'Remover',
+            style: 'destructive',
+            onPress: async () => {
+              try {
+                await deleteEquipment(id);
+                fetchDevices();
+              } catch (error) {
+                Alert.alert('Erro', 'Não foi possível remover o dispositivo.');
               }
             }
-          ]
-        );
-      };
+          }
+        ]
+      );
+    };
       
 
     return (
@@ -100,10 +114,12 @@ export default function EnergyDevicesScreen({ navigation }: Props) {
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
                     <View style={[GlobalStyles.cardDevice, {backgroundColor: Colors.blueSecondary}]}>
-                      <TouchableOpacity onPress={() => editDevice(item)}>
-                        <Text style={{color: Colors.blueDark}}>{item.nome} — {item.consumoMes.toFixed(2)} m³/mês</Text>
+                      <TouchableOpacity onPress={() => handleEdit(item)}>
+                        <Text style={{color: Colors.blueDark}}>
+                          {item.name} — {isNaN(item.totalConsum) ? 'N/A' : `${item.totalConsum.toFixed(2)} m³/mês`}
+                        </Text>
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={() => removeDevice(item.id)}>
+                      <TouchableOpacity onPress={() => handleRemove(item.id)}>
                         <Text style={{color: Colors.brownDark}}>Remover</Text>
                       </TouchableOpacity>
                     </View>
@@ -139,7 +155,7 @@ export default function EnergyDevicesScreen({ navigation }: Props) {
                     </CenteredView>
                     <View style={GlobalStyles.buttonView}>
                         <ButtonSimple
-                            onPress={saveDevices}
+                            onPress={handleSave}
                             title='Adicionar'
                             backgroundColor={Colors.blue}
                         />

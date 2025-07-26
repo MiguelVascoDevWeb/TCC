@@ -4,8 +4,8 @@ import CenteredView from '@/components/CenteredView';
 import TextCard from '@/components/TextCard';
 import Title from '@/components/Title';
 import { useAuth } from '@/hooks/useAuth';
-import { loadDevicesFromStorageEnergy } from '@/repositories/LocalStorageEnergy';
-import { loadDevicesFromStorageWater } from '@/repositories/LocalStorageWater';
+//import { loadDevicesFromStorageEnergy } from '@/repositories/LocalStorageEnergy';
+//import { loadDevicesFromStorageWater } from '@/repositories/LocalStorageWater';
 import GlobalStyles from '@/styles/global';
 import HomeScreenStyle from '@/styles/Pages/HomeScreenStyle';
 import { EnergyDevice } from '@/types/EnergyDevice';
@@ -18,6 +18,7 @@ import { ActivityIndicator, Text, View, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { RootTabParamList } from '@/types/RootTabParamList';
+import { getAllElectricEquipments, getAllWaterEquipments } from '@/api/equipments';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<RootTabParamList>;
 
@@ -36,14 +37,14 @@ export default function HomeScreen() {
   useFocusEffect(
     useCallback(() => {
       const carregar = async () => {
-        const listaEnergia = await loadDevicesFromStorageEnergy();
+        const listaEnergia = await getAllElectricEquipments();
         setEnergyDevices(listaEnergia);
-        const soma = listaEnergia.reduce((acc, item) => acc + item.consumoMes, 0);
-        setConsumoTotal(soma);
+        const somaEnergia = listaEnergia.reduce((acc, item) => acc + item.totalConsum, 0);
+        setConsumoTotal(somaEnergia);
 
-        const listaAgua = await loadDevicesFromStorageWater();
+        const listaAgua = await getAllWaterEquipments();
         setWaterDevices(listaAgua);
-        const somaAgua = listaAgua.reduce((acc, item) => acc + item.consumoMes, 0);
+        const somaAgua = listaAgua.reduce((acc: any, item: { totalConsum: any; }) => acc + item.totalConsum, 0);
         setConsumoTotalAgua(somaAgua);
       };
 
