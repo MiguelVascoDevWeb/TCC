@@ -95,7 +95,7 @@ export default function WaterDevicesScreen({ navigation }: Props) {
             style: 'destructive',
             onPress: async () => {
               try {
-                await deleteEquipment(id);
+                await deleteEquipment(id, 'WATER');
                 fetchDevices();
               } catch (error) {
                 Alert.alert('Erro', 'Não foi possível remover o dispositivo.');

@@ -2,6 +2,8 @@ import { EnergyDevice, EnergyDevicePayload } from '@/types/EnergyDevice';
 import { api } from './api';
 import { WaterDevice, WaterDevicePayload } from '@/types/WaterDevice';
 
+type EquipmentType = 'WATER' | 'ELECTRIC';
+
 export async function createElectricEquipment(data: EnergyDevicePayload) {
   const response = await api.post<EnergyDevice>('/equipment/electric', data);
   return response.data;
@@ -17,14 +19,17 @@ export async function updateElectricEquipment(id: string, data: EnergyDevicePayl
   return response.data;
 }
 
-export async function deleteEquipment(id: string) {
-  const response = await api.delete(`/delequipment/${id}`);
+export async function deleteEquipment(id: string, type: EquipmentType ) {
+  const response = await api.delete(`/delequipment/${id}`, {
+    data: { type },
+  });
+
   return response.status === 204;
 }
 
 // =======================
 // 💧 Hídricos
-// =======================
+// ======================= 
 
 export async function createWaterEquipment(data: WaterDevicePayload) {
   const response = await api.post<WaterDevice>('/equipment/water', data);

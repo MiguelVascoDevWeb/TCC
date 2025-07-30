@@ -101,7 +101,7 @@ export default function EnergyDevicesScreen({ navigation }: Props) {
           style: 'destructive',
           onPress: async () => {
             try {
-              await deleteEquipment(id);
+              await deleteEquipment(id, 'ELECTRIC');
               fetchDevices();
             } catch (error) {
               Alert.alert('Erro', 'Não foi possível remover o dispositivo.');
