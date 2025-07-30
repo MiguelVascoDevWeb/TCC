@@ -20,7 +20,7 @@ export async function updateElectricEquipment(id: string, data: EnergyDevicePayl
 }
 
 export async function deleteEquipment(id: string, type: EquipmentType ) {
-  const response = await api.delete(`/delequipment/${id}`, {
+  const response = await api.delete(`/equipment/delequipment/${id}`, {
     data: { type },
   });
 
